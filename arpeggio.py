@@ -1407,8 +1407,9 @@ Dependencies:
         selection = selection_parser(args.selection, entity)
 
     elif args.selection_file:
-        with open(args.selection_file, 'rb') as fo:
-            selection = selection_parser([line for line in fo], entity)
+        with open(args.selection_file, 'r') as fo:
+            sel = [line.strip() for line in fo]
+            selection = selection_parser(sel, entity)
 
     if len(selection) == 0:
 
@@ -1425,7 +1426,7 @@ Dependencies:
     selection_plus_ring_ids = set(selection_ring_ids)
     selection_plus_amide_ids = set(selection_amide_ids)
 
-    if args.selection:
+    if args.selection or args.selection_file:
 
         # GET LIST OF RESIDUES IN THE SELECTION PLUS BINDING SITE
         selection_residues = set([x.get_parent() for x in selection])
