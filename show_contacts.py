@@ -1,7 +1,7 @@
 import argparse
 import os
 import sys
-import xmlrpclib
+import xmlrpc.client
 
 host='localhost'
 port=9123
@@ -412,7 +412,7 @@ if __name__ == '__main__':
     script_filename = pdb_filename.replace('.pdb', output_postfix + '.pml')
     
     if args.xml_rpc:
-        srv = xmlrpclib.Server('http://{}:{}'.format(host, port))
+        srv = xmlrpc.client.Server('http://{}:{}'.format(host, port))
     
     do = None
     
@@ -429,7 +429,7 @@ if __name__ == '__main__':
         do = srv.do
     
     else:
-        print 'Please select XML-RPC (-xml) or script (-s) output.'
+        print('Please select XML-RPC (-xml) or script (-s) output.')
         sys.exit(1)
     
     # PYMOL SETUP
@@ -627,9 +627,9 @@ if __name__ == '__main__':
                 used_interaction_types.add((interaction_type, flag))
             
             if not n_lines % 500:
-                print 'Drew {} contacts.'.format(n_lines)
+                print('Drew {} contacts.'.format(n_lines))
         
-        print 'Drew {} total contacts.'.format(n_lines)
+        print('Drew {} total contacts.'.format(n_lines))
         
         for interaction_type, flag in used_interaction_types:
             
